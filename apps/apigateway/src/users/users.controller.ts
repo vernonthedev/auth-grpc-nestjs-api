@@ -6,9 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto, UpdateUserDto } from '@app/common';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  PaginationDto,
+  Users,
+} from '@app/common';
+import { Observable } from 'rxjs';
 
 @Controller('users')
 export class UsersController {
@@ -26,16 +33,31 @@ export class UsersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
+  }
+
+  @Get('query/stream')
+  queryUsers(@Query() paginationDto: PaginationDto): Observable<Users> {
+    const paginationStream = new Observable<PaginationDto>((subscriber) => {
+      subscriber.next(paginationDto);
+      subscriber.complete();
+    });
+    return this.usersService.queryUsers(paginationStream);
+  }
+
+  @Post('email')
+  emailUsers() {
+    this.usersService.emailUsers();
+    return { message: 'Email users process started' };
   }
 }
