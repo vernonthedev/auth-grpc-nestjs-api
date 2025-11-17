@@ -19,27 +19,29 @@ export class UsersController implements UserService {
 
   @GrpcMethod(UserServiceServiceName, 'CreateUser')
   CreateUser(createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+    return Promise.resolve(this.usersService.create(createUserDto));
   }
 
   @GrpcMethod(UserServiceServiceName, 'FindAllUsers')
   FindAllUsers(): Promise<Users> {
-    return this.usersService.findAll();
+    return Promise.resolve(this.usersService.findAll());
   }
 
   @GrpcMethod(UserServiceServiceName, 'FindOneUser')
   FindOneUser(findOneUserDto: FindOneUserDto): Promise<User> {
-    return this.usersService.findOne(findOneUserDto.id);
+    return Promise.resolve(this.usersService.findOne(findOneUserDto.id));
   }
 
   @GrpcMethod(UserServiceServiceName, 'UpdateUser')
   UpdateUser(updateUserDto: UpdateUserDto): Promise<User> {
-    return this.usersService.update(updateUserDto.id, updateUserDto);
+    return Promise.resolve(
+      this.usersService.update(updateUserDto.id, updateUserDto),
+    );
   }
 
   @GrpcMethod(UserServiceServiceName, 'RemoveUser')
   RemoveUser(findOneUserDto: FindOneUserDto): Promise<User> {
-    return this.usersService.remove(findOneUserDto.id);
+    return Promise.resolve(this.usersService.remove(findOneUserDto.id));
   }
 
   @GrpcStreamMethod(UserServiceServiceName, 'QueryUsers')
