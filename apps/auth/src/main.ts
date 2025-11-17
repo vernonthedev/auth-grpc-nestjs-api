@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AuthModule } from './auth.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { AUTH } from '@app/common';
+import { protobufPackage } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -11,12 +11,10 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         protoPath: join(__dirname, '../auth.proto'),
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        package: AUTH,
+        package: protobufPackage,
       },
     },
   );
   await app.listen();
 }
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-bootstrap();
+void bootstrap();

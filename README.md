@@ -25,3 +25,9 @@ Generating the shared common lib directory
 ```bash
 nest g lib common
 ```
+
+Generating the user rest api types within the apigateway
+
+```bash
+nest g resource users
+```
