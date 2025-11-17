@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/apigateway",
   "projects": {
+    "apigateway": {
+      "type": "application",
+      "root": "apps/apigateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/apigateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/apigateway/tsconfig.app.json"
+      }
+    },
     "auth": {
       "type": "application",
       "root": "apps/auth",
@@ -19,13 +28,13 @@
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
-    "apigateway": {
-      "type": "application",
-      "root": "apps/apigateway",
-      "entryFile": "main",
-      "sourceRoot": "apps/apigateway/src",
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/apigateway/tsconfig.app.json"
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     }
   }

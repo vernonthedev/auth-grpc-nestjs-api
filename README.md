@@ -19,3 +19,9 @@ What worked for me! (On Windows)
 ```bash
 protoc --plugin=protoc-gen-ts_proto=C:\Users\editing\Desktop\coding\auth-grpc\node_modules\.bin\protoc-gen-ts_proto.cmd --ts_proto_out=./ --ts_proto_opt=nestJs ./proto/auth.proto
 ```
+
+Generating the shared common lib directory
+
+```bash
+nest g lib common
+```
