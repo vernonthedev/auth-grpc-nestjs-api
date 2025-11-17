@@ -1,35 +1,51 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  FindOneUserDto,
+  UserService,
+  PaginationDto,
+  User,
+  Users,
+  UserServiceServiceName,
+} from '@app/common';
+import { Observable } from 'rxjs';
 
 @Controller()
-export class UsersController {
+export class UsersController implements UserService {
   constructor(private readonly usersService: UsersService) {}
 
-  @MessagePattern('createUser')
-  create(@Payload() createUserDto: CreateUserDto) {
+  @GrpcMethod(UserServiceServiceName, 'CreateUser')
+  CreateUser(createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
 
-  @MessagePattern('findAllUsers')
-  findAll() {
+  @GrpcMethod(UserServiceServiceName, 'FindAllUsers')
+  FindAllUsers(): Promise<Users> {
     return this.usersService.findAll();
   }
 
-  @MessagePattern('findOneUser')
-  findOne(@Payload() id: number) {
-    return this.usersService.findOne(id);
+  @GrpcMethod(UserServiceServiceName, 'FindOneUser')
+  FindOneUser(findOneUserDto: FindOneUserDto): Promise<User> {
+    return this.usersService.findOne(findOneUserDto.id);
   }
 
-  @MessagePattern('updateUser')
-  update(@Payload() updateUserDto: UpdateUserDto) {
+  @GrpcMethod(UserServiceServiceName, 'UpdateUser')
+  UpdateUser(updateUserDto: UpdateUserDto): Promise<User> {
     return this.usersService.update(updateUserDto.id, updateUserDto);
   }
 
-  @MessagePattern('removeUser')
-  remove(@Payload() id: number) {
-    return this.usersService.remove(id);
+  @GrpcMethod(UserServiceServiceName, 'RemoveUser')
+  RemoveUser(findOneUserDto: FindOneUserDto): Promise<User> {
+    return this.usersService.remove(findOneUserDto.id);
+  }
+
+  @GrpcStreamMethod(UserServiceServiceName, 'QueryUsers')
+  QueryUsers(
+    paginationDtoStream: Observable<PaginationDto>,
+  ): Observable<Users> {
+    return this.usersService.queryUsers(paginationDtoStream);
   }
 }
