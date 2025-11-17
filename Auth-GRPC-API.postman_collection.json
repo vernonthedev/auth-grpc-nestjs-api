@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "auth-grpc-api-collection",
+		"name": "Auth GRPC API",
+		"description": "Complete API collection for Auth GRPC Microservice - API Gateway endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"john_doe\",\n  \"password\": \"securePassword123\",\n  \"age\": 28\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Create a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Retrieve all users from the system"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user-id-here",
+									"description": "User ID"
+								}
+							]
+						},
+						"description": "Retrieve a specific user by their ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"socialMedia\": {\n    \"twitterURL\": \"https://twitter.com/john_doe\",\n    \"instagramURL\": \"https://instagram.com/john_doe\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user-id-here",
+									"description": "User ID"
+								}
+							]
+						},
+						"description": "Update a user's information (currently supports social media updates)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user-id-here",
+									"description": "User ID"
+								}
+							]
+						},
+						"description": "Delete a user by their ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Query Users (Stream)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/query/stream?page=0&skip=25",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"query",
+								"stream"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Page number"
+								},
+								{
+									"key": "skip",
+									"value": "25",
+									"description": "Number of items to skip/take"
+								}
+							]
+						},
+						"description": "Query users with pagination using streaming (gRPC bidirectional stream)"
+					},
+					"response": []
+				},
+				{
+					"name": "Email Users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"email"
+							]
+						},
+						"description": "Trigger email users process - sends multiple pagination requests (pages 0-3) and processes user chunks"
+					},
+					"response": []
+				}
+			],
+			"description": "User management endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
+

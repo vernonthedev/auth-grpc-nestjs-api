@@ -1,0 +1,90 @@
+### Auth GRPC API - Users Endpoints
+### Base URL - Update this variable or replace {{base_url}} with your actual URL
+@base_url = http://localhost:3000
+
+### Variables
+@userId = user-id-here
+
+##########################################
+### CREATE USER
+##########################################
+POST {{base_url}}/users
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "securePassword123",
+  "age": 28
+}
+
+##########################################
+### GET ALL USERS
+##########################################
+GET {{base_url}}/users
+
+##########################################
+### GET USER BY ID
+##########################################
+GET {{base_url}}/users/{{userId}}
+
+### Example with actual ID
+GET {{base_url}}/users/123e4567-e89b-12d3-a456-426614174000
+
+##########################################
+### UPDATE USER
+##########################################
+PATCH {{base_url}}/users/{{userId}}
+Content-Type: application/json
+
+{
+  "socialMedia": {
+    "twitterURL": "https://twitter.com/john_doe",
+    "instagramURL": "https://instagram.com/john_doe"
+  }
+}
+
+### Example with actual ID
+PATCH {{base_url}}/users/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+  "socialMedia": {
+    "twitterURL": "https://twitter.com/john_doe",
+    "instagramURL": "https://instagram.com/john_doe"
+  }
+}
+
+##########################################
+### DELETE USER
+##########################################
+DELETE {{base_url}}/users/{{userId}}
+
+### Example with actual ID
+DELETE {{base_url}}/users/123e4567-e89b-12d3-a456-426614174000
+
+##########################################
+### QUERY USERS (STREAM) - Page 0
+##########################################
+GET {{base_url}}/users/query/stream?page=0&skip=25
+
+##########################################
+### QUERY USERS (STREAM) - Page 1
+##########################################
+GET {{base_url}}/users/query/stream?page=1&skip=25
+
+##########################################
+### QUERY USERS (STREAM) - Page 2
+##########################################
+GET {{base_url}}/users/query/stream?page=2&skip=25
+
+##########################################
+### QUERY USERS (STREAM) - Custom Pagination
+##########################################
+GET {{base_url}}/users/query/stream?page=0&skip=10
+
+##########################################
+### EMAIL USERS
+##########################################
+POST {{base_url}}/users/email
+Content-Type: application/json
+
