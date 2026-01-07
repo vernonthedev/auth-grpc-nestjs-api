@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "auth-grpc-api-collection",
-		"name": "Auth GRPC API",
+		"name": "auth-grpc-api",
 		"description": "Complete API collection for Auth GRPC Microservice - API Gateway endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
